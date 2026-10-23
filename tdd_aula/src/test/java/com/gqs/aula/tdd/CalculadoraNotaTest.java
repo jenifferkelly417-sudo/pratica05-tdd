@@ -65,7 +65,8 @@ void deveRejeitarA1Negativa() {
 void maximasvalem() {
     CalculadoraNota calc = new CalculadoraNota();
     assertThrows(IllegalArgumentException.class,
-    () -> calc.calcularNotaFinal(30, 30,40));
+    () -> calc.calcularNotaFinal(31, 31, 41));
 
 }
+
 }
