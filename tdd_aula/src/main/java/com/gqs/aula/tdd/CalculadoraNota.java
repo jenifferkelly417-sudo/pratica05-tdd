@@ -2,40 +2,63 @@ package com.gqs.aula.tdd;
 
 public class CalculadoraNota {
 
-public double calcularNotaFinal(double a1, double a2, double a3) {
-
-// 2. Em calcularNotaFinal, no lugar dos três if
-validarNota(a1, 30,
-
-"A1");
-
-validarNota(a2,30,
-
-"A2");
-
-validarNota(a3, 40,
-
-"A3");
-
-return a1 + a2 + a3;
-}
-
 public static final double NOTA_MINIMA_APROVACAO = 70;
-
+public static final double FREQUENCIA_MINIMA = 75;
 public boolean estaAprovadoPorNota(double notaFinal) {
 return notaFinal >= NOTA_MINIMA_APROVACAO;
+
+}
+
+public double calcularNotaFinal(double a1, double a2, double a3) {
+validarNota(a1, 30, "A1");  
+validarNota(a2, 30, "A2");
+validarNota(a3, 40, "A3");
+return a1 + a2 + a3;
 }
 
 private void validarNota(double nota, double notaMaxima, String nomeAvaliacao) {
 if (nota < 0 || nota > notaMaxima) {
 throw new IllegalArgumentException(
-nomeAvaliacao + " deve estar entre 0 e " + notaMaxima)
-;
+nomeAvaliacao + " deve estar entre 0 e " + notaMaxima);
 }
-
 }
 public String situacao(double notaFinal, double frequencia) {
-    if (notaFinal 80, frequencia  75)
-    
-}
+    if (frequencia < FREQUENCIA_MINIMA) {
+        return "REPROVADO POR FALTA";
     }
+
+    if (!estaAprovadoPorNota(notaFinal)) {
+        return "REPROVADO POR NOTA";
+    }
+
+    return "APROVADO";
+}
+public boolean podeFazerAI(
+        double a1, double a2, double a3, double frequencia) {
+
+    boolean naoAprovado = a1 + a2 + a3 < NOTA_MINIMA_APROVACAO;
+    boolean frequenciaSuficiente = frequencia >= FREQUENCIA_MINIMA;
+    boolean notasSuficientes = (a1 + a3 >= 40) || (a2 + a3 >= 40);
+
+    return naoAprovado && frequenciaSuficiente && notasSuficientes;
+}
+public double aplicarAI(
+        double a1, double a2, double a3, double notaAI) {
+
+    if (notaAI < 0 || notaAI > 30) {
+        throw new IllegalArgumentException(
+            "A nota da AI deve estar entre 0 e 30"
+        );
+    }
+
+    if (notaAI > Math.min(a1, a2)) {
+        if (a1 < a2) {
+            a1 = notaAI;
+        } else {
+            a2 = notaAI;
+        }
+    }
+
+    return a1 + a2 + a3;
+}
+}
