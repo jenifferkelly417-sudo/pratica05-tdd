@@ -69,4 +69,26 @@ void maximasvalem() {
 
 }
 
+@Test 
+    void deveAprovarComNotaEFrequenciaSuficiente(){
+    CalculadoraNota calc = new CalculadoraNota();
+    assertEquals("APRAVADO", calc.situacao(80,75));
+    
 }
+@Test 
+    void deveReprovarcomNotaBaixa(){
+        CalculadoraNota calc = new CalculadoraNota();
+        assertEquals( "REPROVADO", calc.situacao(60, 75));
+
+    }
+    @Test 
+    void deveReprovarPorFrequenciaMesmoComNotaAlta() {
+        CalculadoraNota calc = new CalculadoraNota();
+        assertEquals( "REPROVADO", calc.situacao(80, 60));
+}
+@Test 
+void deveAprovarComFrequenciaExatamente75 (){
+    CalculadoraNota calc = new CalculadoraNota();
+    assertEquals("APROVADO", calc.situacao(80, 75));
+}
+} 
